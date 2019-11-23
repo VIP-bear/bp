@@ -1,11 +1,14 @@
 package com.bear.bp.ui.My;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -26,12 +29,20 @@ public class MyFragment extends Fragment implements View.OnClickListener{
 
     private RelativeLayout about;       // 关于
 
+    private TextView user;              // 用户
+
+    private ImageView imageView;        // 头像
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my, container, false);
 
         initLayout(view);
         setListener();
+
+        // 获取存储在本地的用户信息
+        SharedPreferences preferences = getActivity().getSharedPreferences("userMessage", Context.MODE_PRIVATE);
+        user.setText(preferences.getString("username", ""));
 
         return view;
     }
@@ -40,12 +51,15 @@ public class MyFragment extends Fragment implements View.OnClickListener{
         collect = view.findViewById(R.id.collect);
         setting = view.findViewById(R.id.setting);
         about = view.findViewById(R.id.about);
+        user = view.findViewById(R.id.user);
+        imageView = view.findViewById(R.id.icon_image);
     }
     // 设置监听事件
     private void setListener(){
         collect.setOnClickListener(this);
         setting.setOnClickListener(this);
         about.setOnClickListener(this);
+        imageView.setOnClickListener(this);
     }
 
     @Override
