@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bear.bp.PictureActivity;
@@ -12,6 +13,8 @@ import com.bear.bp.R;
 import com.bear.bp.data.Picture;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+
+import org.litepal.LitePal;
 
 import java.util.List;
 
@@ -28,9 +31,12 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
 
         ImageView picture;
 
+        Button like;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.picture = itemView.findViewById(R.id.picture);
+            this.like = itemView.findViewById(R.id.like);
         }
     }
 
@@ -49,8 +55,15 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final Picture picture = pictureList.get(position);
+
+        if (picture.getIsLove() == 1){
+            holder.like.setBackgroundResource(R.drawable.love);
+        }else {
+            holder.like.setBackgroundResource(R.drawable.un_love);
+        }
+
 
         RequestOptions options = new RequestOptions();
         options.placeholder(R.drawable.load)        // 加载图片时的图片
@@ -63,9 +76,31 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
             public void onClick(View v) {
                 Intent intent = new Intent(context, PictureActivity.class);
                 intent.putExtra("pictureMessage", picture);
+                intent.putExtra("position", position);
                 context.startActivity(intent);
             }
         });
+        holder.like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (picture.getIsLove() == 0){
+                    picture.setIsLove(1);
+                    holder.like.setBackgroundResource(R.drawable.love);
+                    picture.save();     // 添加到本地数据库
+                }else {
+                    picture.setIsLove(0);
+                    holder.like.setBackgroundResource(R.drawable.un_love);
+                    // 从本地数据库删除
+                    if (picture.isSaved()){
+                        picture.delete();
+                    }else {
+                        LitePal.deleteAll(Picture.class, "pictureName = ?",
+                                picture.getPictureName());
+                    }
+                }
+            }
+        });
+
     }
 
     @Override

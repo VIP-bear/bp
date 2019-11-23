@@ -1,130 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".ui.My.AboutActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:padding="10dp"
-        android:background="?attr/colorPrimary">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/icon_image"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:src="@drawable/my_account"
-            android:layout_centerInParent="true" />
-        <TextView
-            android:id="@+id/username"
+            android:id="@+id/from_about_back_my"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/icon_image"
+            android:background="@drawable/ic_back"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_centerInParent="true"
-            android:text="bear"
-            android:textColor="#fff"
-            android:textSize="24sp" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/collect"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="horizontal">
-        <ImageView
-            android:id="@+id/icon_love"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:background="@drawable/un_love"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/icon_love"
-            android:layout_marginLeft="10dp"
-            android:text="收藏"
-            android:textSize="24sp"
-            android:layout_gravity="center"/>
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/enter"/>
-        <View
-            android:layout_height="1px"
-            android:layout_width="match_parent"
-            android:layout_below="@+id/icon_love"
-            android:layout_marginTop="5dp"
-            android:background="#000000" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/setting"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="horizontal">
-        <ImageView
-            android:id="@+id/icon_set"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:background="@drawable/setting"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/icon_set"
-            android:layout_marginLeft="10dp"
-            android:text="设置"
-            android:textSize="24sp"
-            android:layout_gravity="center"/>
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/enter"/>
-        <View
-            android:layout_height="1px"
-            android:layout_width="match_parent"
-            android:layout_below="@+id/icon_set"
-            android:layout_marginTop="5dp"
-            android:background="#000000" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/about"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="horizontal">
-        <ImageView
-            android:id="@+id/icon_about"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:background="@drawable/about"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/icon_about"
-            android:layout_marginLeft="10dp"
             android:text="关于"
             android:textSize="24sp"
+            android:textColor="#000000"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_height="1px"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:background="#000000" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginLeft="10dp"
+            android:text="软件版本"
+            android:textSize="20sp"
             android:layout_gravity="center"/>
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_margin="5dp"
             android:layout_alignParentRight="true"
-            android:background="@drawable/enter"/>
+            android:layout_marginRight="10dp"
+            android:text="1.0"
+            android:textSize="20sp"/>
         <View
             android:layout_height="1px"
             android:layout_width="match_parent"
-            android:layout_below="@+id/icon_about"
+            android:layout_below="@+id/version"
+            android:layout_marginTop="5dp"
+            android:background="#000000" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/developer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginLeft="10dp"
+            android:text="开发者"
+            android:textSize="20sp"
+            android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:text="bear"
+            android:textSize="20sp"/>
+        <View
+            android:layout_height="1px"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/developer"
+            android:layout_marginTop="5dp"
+            android:background="#000000" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_margin="5dp"
+            android:text="联系方式"
+            android:textSize="20sp"
+            android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_margin="5dp"
+            android:text="1907464379@qq.com"
+            android:textSize="20sp"/>
+        <View
+            android:layout_height="1px"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/contact"
             android:layout_marginTop="5dp"
             android:background="#000000" />
     </RelativeLayout>

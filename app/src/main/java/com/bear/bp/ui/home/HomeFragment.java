@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.bear.bp.R;
+import com.bear.bp.StaticGlobal;
 import com.bear.bp.adapter.PictureAdapter;
 import com.bear.bp.data.Picture;
 import com.bear.bp.util.HttpUtil;
@@ -29,8 +30,6 @@ public class HomeFragment extends Fragment {
 
     private PictureAdapter pictureAdapter;
 
-    private List<Picture> pictureList = new ArrayList<>();  // 存储图片
-
     private static final String TAG = "HomeFragment";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -40,8 +39,10 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         // 获取图片url
-        HttpUtil.sendRequestWithOkHttp();
-        HttpUtil.paserDataAndGetPictureUrl(pictureList);
+        if (StaticGlobal.pictureList.isEmpty()) {
+            HttpUtil.sendRequestWithOkHttp();
+            HttpUtil.paserDataAndGetPictureUrl(StaticGlobal.pictureList);
+        }
 
         Log.d(TAG, "onCreateView: "+"excuted");
 
@@ -49,7 +50,7 @@ public class HomeFragment extends Fragment {
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,
                 StaggeredGridLayoutManager.VERTICAL);
         imageListView.setLayoutManager(layoutManager);
-        pictureAdapter = new PictureAdapter(getContext(), pictureList);
+        pictureAdapter = new PictureAdapter(getContext(), StaticGlobal.pictureList);
         imageListView.setAdapter(pictureAdapter);
 
         return view;

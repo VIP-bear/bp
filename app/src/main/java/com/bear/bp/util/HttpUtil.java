@@ -5,7 +5,6 @@ import android.util.Log;
 import com.bear.bp.StaticGlobal;
 import com.bear.bp.data.Picture;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -51,6 +50,7 @@ public class HttpUtil {
                 Picture picture = new Picture();
                 picture.setPictureName(pictureName);
                 picture.setPictureUrl(StaticGlobal.url + fileName + "/" + pictureName);
+                picture.setIsLove(0);
                 pictureList.add(picture);
             }
         }
