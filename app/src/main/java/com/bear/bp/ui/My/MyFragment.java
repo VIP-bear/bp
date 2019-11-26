@@ -13,6 +13,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bear.bp.R;
+import com.bear.bp.StaticGlobal;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,6 +37,9 @@ public class MyFragment extends Fragment implements View.OnClickListener{
 
     private ImageView imageView;        // 头像
 
+    // 用户头像地址
+    private String url = "http://182.92.159.2/pic/headImage/"+StaticGlobal.username + ".jpg" ;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my, container, false);
@@ -40,9 +47,7 @@ public class MyFragment extends Fragment implements View.OnClickListener{
         initLayout(view);
         setListener();
 
-        // 获取存储在本地的用户信息
-        SharedPreferences preferences = getActivity().getSharedPreferences("userMessage", Context.MODE_PRIVATE);
-        user.setText(preferences.getString("username", ""));
+        user.setText(StaticGlobal.username);
 
         return view;
     }
@@ -81,5 +86,19 @@ public class MyFragment extends Fragment implements View.OnClickListener{
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        RequestOptions options = new RequestOptions()
+                .placeholder(R.drawable.load)
+                .error(R.drawable.my_account)      // 没有找到头像时的图片
+                .skipMemoryCache(true)      // 跳过内存缓存
+                .diskCacheStrategy(DiskCacheStrategy.NONE)  // 不要再disk硬盘缓存
+                .fitCenter()
+                .circleCrop();
+
+        Glide.with(getContext()).load(url).apply(options).into(imageView);
     }
 }

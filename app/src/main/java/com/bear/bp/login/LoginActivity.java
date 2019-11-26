@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.bear.bp.MainActivity;
 import com.bear.bp.R;
+import com.bear.bp.StaticGlobal;
 import com.bear.bp.util.LoginRegisterServer;
 
 import java.io.IOException;
@@ -57,6 +58,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         // 自动登录
         if (autoLogin){
+            StaticGlobal.username = userName.getText().toString();
             LoginRegisterServer.postRequest(userName.getText().toString(),
                     password.getText().toString(), url, LoginActivity.this, 1);
         }
@@ -89,6 +91,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(LoginActivity.this,
                             "请输入密码", Toast.LENGTH_SHORT).show();
                 }else {
+                    StaticGlobal.username = inputUserName;
                     LoginRegisterServer.postRequest(inputUserName, inputPassword, url,
                             LoginActivity.this, 1);
                 }

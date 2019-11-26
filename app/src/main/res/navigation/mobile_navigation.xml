@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_love"
-        android:name="com.bear.bp.ui.Love.LoveFragment"
-        android:label="@string/title_love"
-        tools:layout="@layout/fragment_love" />
+        android:name="com.bear.bp.ui.Upload.UploadFragment"
+        android:label="@string/title_upload"
+        tools:layout="@layout/fragment_upload" />
 
     <fragment
         android:id="@+id/navigation_my"

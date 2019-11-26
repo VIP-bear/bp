@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">bp</string>
     <string name="title_home">Home</string>
-    <string name="title_love">Love</string>
+    <string name="title_upload">Upload</string>
     <string name="title_my">My</string>
     <string name="title_activity_settings">Settings</string>
 

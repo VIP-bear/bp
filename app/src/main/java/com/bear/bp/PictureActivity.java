@@ -52,7 +52,7 @@ public class PictureActivity extends AppCompatActivity {
 
     private Picture picture;
 
-    private Button back;    // 返回主界面
+    private ImageView back;    // 返回主界面
 
     private ImageView love;   // 喜欢/取消
 

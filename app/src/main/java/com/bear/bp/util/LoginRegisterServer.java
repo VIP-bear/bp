@@ -1,18 +1,25 @@
 package com.bear.bp.util;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.bear.bp.MainActivity;
 import com.bear.bp.login.LoginActivity;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
 import java.io.IOException;
 
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -20,7 +27,7 @@ import okhttp3.Response;
 
 public class LoginRegisterServer {
     /*
-       处理登录和注册
+       处理登录、注册、图片上传
      */
 
     public static Activity activity;
@@ -57,7 +64,7 @@ public class LoginRegisterServer {
         }
     };
 
-    // 发送请求
+    // 发送登录/注册请求
     public static void postRequest(String username, String password, String url, Activity newActivity, final int what){
         activity = newActivity;
         final OkHttpClient client = new OkHttpClient();
@@ -87,6 +94,40 @@ public class LoginRegisterServer {
                 }
             }
         }).start();
+    }
+    // 上传图片
+    public static void uploadImage(String url, String imagePath,String name, String fileName){
+        final OkHttpClient client = new OkHttpClient();
+        File file = new File(imagePath);
+        RequestBody fileBody = RequestBody.create(MediaType.parse("image/jpeg"), file);
+        // 建立请求表单
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart(name, fileName,fileBody)
+                .build();
+        // 发送请求
+        final Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build();
+        // 在子线程中发送请求
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        Log.d("load", "onFailure: "+"上传失败");
+                    }
+
+                    @Override
+                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                        Log.d("load", "onResponse: "+"上传成功"+response.body().string());
+                    }
+                });
+            }
+        }).start();
+
     }
 
 }
