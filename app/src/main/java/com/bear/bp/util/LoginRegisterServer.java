@@ -95,8 +95,8 @@ public class LoginRegisterServer {
             }
         }).start();
     }
-    // 上传图片
-    public static void uploadImage(String url, String imagePath,String name, String fileName){
+    // 上传头像
+    public static void uploadHeadImage(String url, String imagePath,String name, String fileName){
         final OkHttpClient client = new OkHttpClient();
         File file = new File(imagePath);
         RequestBody fileBody = RequestBody.create(MediaType.parse("image/jpeg"), file);
@@ -128,6 +128,44 @@ public class LoginRegisterServer {
             }
         }).start();
 
+    }
+    // 上传图片
+    public static void uploadImage(String url, String imagePath,String username, String label,
+                                   String title, String description, String fileName) {
+        final OkHttpClient client = new OkHttpClient();
+        File file = new File(imagePath);
+        RequestBody fileBody = RequestBody.create(MediaType.parse("image/jpeg"), file);
+        // 建立请求表单
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("username", username)
+                .addFormDataPart("label", label)
+                .addFormDataPart("title", title)
+                .addFormDataPart("description", description)
+                .addFormDataPart("image", fileName, fileBody)
+                .build();
+        // 发送请求
+        final Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build();
+        // 在子线程中发送请求
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        Log.d("load", "onFailure: " + "上传失败");
+                    }
+
+                    @Override
+                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                        Log.d("load", "onResponse: " + "上传成功" + response.body().string());
+                    }
+                });
+            }
+        }).start();
     }
 
 }

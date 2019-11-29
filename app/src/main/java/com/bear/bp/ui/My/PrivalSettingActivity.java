@@ -121,7 +121,7 @@ public class PrivalSettingActivity extends AppCompatActivity implements View.OnC
                                 .into(headPortrait);
 
                         // 上传图片到服务器
-                        LoginRegisterServer.uploadImage(url, path, name, fileName);
+                        LoginRegisterServer.uploadHeadImage(url, path, name, fileName);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

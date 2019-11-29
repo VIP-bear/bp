@@ -96,6 +96,7 @@ public class MyFragment extends Fragment implements View.OnClickListener{
                 .error(R.drawable.my_account)      // 没有找到头像时的图片
                 .skipMemoryCache(true)      // 跳过内存缓存
                 .diskCacheStrategy(DiskCacheStrategy.NONE)  // 不要再disk硬盘缓存
+                .dontAnimate()                     // 解决加载过慢的问题
                 .fitCenter()
                 .circleCrop();
 

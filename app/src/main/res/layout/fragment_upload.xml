@@ -62,6 +62,7 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:background="#ffffff"
+                    android:text=""
                     android:textSize="20sp"/>
 
             </LinearLayout>
@@ -85,6 +86,7 @@
                     android:padding="5dp"
                     android:background="#ffffff"
                     android:textSize="20sp"
+                    android:text=""
                     android:lines="5"/>
             </LinearLayout>
             <LinearLayout
@@ -97,13 +99,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:padding="5dp"
-                    android:text="标签"
+                    android:text="标签(必填)"
                     android:textSize="20sp"/>
                 <EditText
                     android:id="@+id/input_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
+                    android:text=""
                     android:background="#ffffff"
                     android:textSize="20sp"/>
             </LinearLayout>

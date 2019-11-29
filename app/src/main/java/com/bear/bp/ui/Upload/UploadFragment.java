@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +18,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bear.bp.R;
+import com.bear.bp.StaticGlobal;
 import com.bear.bp.util.LoginRegisterServer;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -49,11 +52,10 @@ public class UploadFragment extends Fragment implements View.OnClickListener{
     private static final String TAG = "UploadFragment";
 
     // 服务端地址
-    private String url = "http://182.92.159.2/LoginDemo/AndroidTestDemo/UploadHeadImageServlet?";
+    private String url = "http://182.92.159.2/LoginDemo/AndroidTestDemo/UploadImageServlet?";
 
     // 图片地址
     private String imagePath;
-    private String name = "uploadImage";
 
     // 格式化系统时间
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -100,11 +102,21 @@ public class UploadFragment extends Fragment implements View.OnClickListener{
                 chooseImage.setImageDrawable(null);
                 break;
             case R.id.commit:
-                Date date = new Date(System.currentTimeMillis());
-                // 上传图片到服务器
-                LoginRegisterServer.uploadImage(url, imagePath, name,
-                        simpleDateFormat.format(date).replace(" ", "-") + ".jpg");
+                if (!TextUtils.isEmpty(lable.getText().toString())  && (!TextUtils.isEmpty(title.getText().toString()))
+                        && (!TextUtils.isEmpty(description.getText().toString())) && !(chooseImage.getDrawable() == null)) {
+                    Date date = new Date(System.currentTimeMillis());
+                    String inputLable = lable.getText().toString();
+                    String inputTitle = title.getText().toString();
+                    String inputDescription = description.getText().toString();
+                    String imageName = simpleDateFormat.format(date).replace(" ", "-") + ".jpg";
+                    // 上传图片到服务器
+                    LoginRegisterServer.uploadImage(url, imagePath, StaticGlobal.username,
+                            inputLable, inputTitle, inputDescription, imageName);
+                }else {
+                    Toast.makeText(getContext(), "不能有空", Toast.LENGTH_SHORT).show();
+                }
                 break;
+
         }
     }
 

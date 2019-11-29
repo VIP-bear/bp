@@ -48,9 +48,11 @@ public class HomeFragment extends Fragment {
             switch (msg.what){
                 case 0:
                     // 解析返回的数据并通知recycleView显示图片
-                    Log.d(TAG, "handleMessage: "+(String)msg.obj);
-                    HttpUtil.paserDataAndGetPictureUrl(StaticGlobal.pictureList, (String)msg.obj);
-                    pictureAdapter.notifyDataSetChanged();
+                    if (((String)msg.obj).split(" ").length != StaticGlobal.pictureList.size()) {
+                        StaticGlobal.pictureList.clear();
+                        HttpUtil.paserDataAndGetPictureUrl(StaticGlobal.pictureList, (String) msg.obj, 0);
+                        pictureAdapter.notifyDataSetChanged();
+                    }
                     break;
                 default:
                     break;
@@ -65,9 +67,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         // 获取图片url
-        if (StaticGlobal.pictureList.isEmpty()) {
-            getAllImage(url, "allImage");
-        }
+        getAllImage(url, "allImage");
 
         imageListView = view.findViewById(R.id.image_list_view);
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,

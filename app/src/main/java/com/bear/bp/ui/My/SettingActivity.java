@@ -64,12 +64,10 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.account_setting:
                 Intent intent2 = new Intent(SettingActivity.this, AccountSettingActivity.class);
                 startActivity(intent2);
-                finish();
                 break;
             case R.id.prival_setting:
                 Intent intent3 = new Intent(SettingActivity.this, PrivalSettingActivity.class);
                 startActivity(intent3);
-                finish();
                 break;
             case R.id.login_out:
                 // 取消自动登录

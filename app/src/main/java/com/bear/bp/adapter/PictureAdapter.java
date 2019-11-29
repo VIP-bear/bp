@@ -31,12 +31,12 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
 
         ImageView picture;
 
-        Button like;
+       // Button like;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.picture = itemView.findViewById(R.id.picture);
-            this.like = itemView.findViewById(R.id.like);
+          //  this.like = itemView.findViewById(R.id.like);
         }
     }
 
@@ -58,18 +58,22 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final Picture picture = pictureList.get(position);
 
-        if (picture.getIsLove() == 1){
-            holder.like.setBackgroundResource(R.drawable.love);
-        }else {
-            holder.like.setBackgroundResource(R.drawable.un_love);
-        }
+//        if (picture.getIsLove() == 1){
+//            holder.like.setBackgroundResource(R.drawable.love);
+//        }else {
+//            holder.like.setBackgroundResource(R.drawable.un_love);
+//        }
 
 
         RequestOptions options = new RequestOptions();
         options.placeholder(R.drawable.load)        // 加载图片时的图片
-                .error(R.drawable.error);           // 加载失败时的图片
+                .error(R.drawable.error)            // 加载失败时的图片
+                .dontAnimate();                     // 解决加载过慢的问题
 
-        Glide.with(context).load(picture.getPictureUrl()).apply(options).into(holder.picture);
+        Glide.with(context).
+                load(picture.getPictureUrl())
+                .apply(options)
+                .into(holder.picture);
         // 监听图片的点击事件
         holder.picture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,26 +84,18 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
                 context.startActivity(intent);
             }
         });
-        holder.like.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (picture.getIsLove() == 0){
-                    picture.setIsLove(1);
-                    holder.like.setBackgroundResource(R.drawable.love);
-                    picture.save();     // 添加到本地数据库
-                }else {
-                    picture.setIsLove(0);
-                    holder.like.setBackgroundResource(R.drawable.un_love);
-                    // 从本地数据库删除
-                    if (picture.isSaved()){
-                        picture.delete();
-                    }else {
-                        LitePal.deleteAll(Picture.class, "pictureName = ?",
-                                picture.getPictureName());
-                    }
-                }
-            }
-        });
+//        holder.like.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (picture.getIsLove() == 0){
+//                    picture.setIsLove(1);
+//                    holder.like.setBackgroundResource(R.drawable.love);
+//                }else {
+//                    picture.setIsLove(0);
+//                    holder.like.setBackgroundResource(R.drawable.un_love);
+//                }
+//            }
+//        });
 
     }
 
